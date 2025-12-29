@@ -1,4 +1,5 @@
 #include "imageprocessor_2.h"
+#include "mouseevent.h"
 
 #include <QHBoxLayout>
 #include <QMenuBar>

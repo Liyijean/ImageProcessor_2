@@ -1,6 +1,7 @@
 #ifndef IMAGEPROCESSOR_2_H
 #define IMAGEPROCESSOR_2_H
 #include "imagetransform_1.h"
+#include "mouseevent.h"
 
 #include <QMainWindow>
 #include <QWidget>
