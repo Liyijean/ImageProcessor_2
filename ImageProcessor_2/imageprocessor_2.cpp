@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QColor>
 #include <cstdio>
+#include "imagetransform_1.h"
 
 imageprocessor_2::imageprocessor_2(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +19,7 @@ imageprocessor_2::imageprocessor_2(QWidget *parent)
 
     imgWin = new QLabel();
     QPixmap *initPixmap = new QPixmap(300, 200);
+    gWin = new ImageTransform_1();
     initPixmap->fill(QColor(255, 255, 255));
     imgWin->resize(300, 200);
     imgWin->setScaledContents(true);
@@ -49,6 +51,12 @@ void imageprocessor_2::createActions()
     exitAction->setStatusTip(QStringLiteral("退出程式"));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
+    geometryAction = new QAction(QStringLiteral("幾何轉換"), this);
+    geometryAction->setShortcut(tr("Ctrl+G"));
+    geometryAction->setStatusTip(QStringLiteral("影像幾何轉換"));
+    connect(geometryAction, SIGNAL(triggered()), this, SLOT(showGeometryTransform()));
+    connect(exitAction, SIGNAL(triggered()), gWin, SLOT(close()));
+
     // Zoom In
     zoomInAction = new QAction(QStringLiteral("放大"), this);
     zoomInAction->setShortcut(tr("Ctrl+]"));
@@ -66,6 +74,7 @@ void imageprocessor_2::createMenus()
 {
     fileMenu = menuBar()->addMenu(QStringLiteral("檔案&F"));
     fileMenu->addAction(openFileAction);
+    fileMenu->addAction(geometryAction);
     fileMenu->addAction(exitAction);
 
     QMenu *toolsMenu = menuBar()->addMenu(QStringLiteral("工具&T"));
@@ -77,6 +86,7 @@ void imageprocessor_2::createToolBars()
 {
     fileTool = addToolBar("file");
     fileTool->addAction(openFileAction);
+    fileTool->addAction(geometryAction);
     fileTool->addAction(zoomInAction);
     fileTool->addAction(zoomOutAction);
 }
@@ -96,6 +106,7 @@ void imageprocessor_2::loadFile(QString filename)
 
 void imageprocessor_2::showOpenFile()
 {
+
     filename = QFileDialog::getOpenFileName(
         this,
         QStringLiteral("開啟影像"),
@@ -106,6 +117,15 @@ void imageprocessor_2::showOpenFile()
     if (!filename.isEmpty())
     {
         loadFile(filename);
+    }
+}
+
+void imageprocessor_2::showGeometryTransform()
+{
+    if (!img.isNull()) {
+        gWin->srcImg = img;
+        gWin->inWin->setPixmap(QPixmap::fromImage(gWin->srcImg));
+        gWin->show();
     }
 }
 

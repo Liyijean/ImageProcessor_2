@@ -1,5 +1,6 @@
 #ifndef IMAGEPROCESSOR_2_H
 #define IMAGEPROCESSOR_2_H
+#include "imagetransform_1.h"
 
 #include <QMainWindow>
 #include <QWidget>
@@ -22,14 +23,16 @@ private slots:
     void showOpenFile();
     void zoomIn();
     void zoomOut();
+    void showGeometryTransform();
 
 private:
+
     void createActions();
     void createMenus();
     void createToolBars();
     void loadFile(QString filename);
     void updateImageView();
-
+    ImageTransform_1 *gWin;
     QWidget  *central;
     QMenu    *fileMenu;
     QToolBar *fileTool;
@@ -43,7 +46,7 @@ private:
     QAction  *exitAction;
     QAction  *zoomInAction;
     QAction  *zoomOutAction;
-
+    QAction *geometryAction;
     double scaleFactor = 1.0;
 };
 

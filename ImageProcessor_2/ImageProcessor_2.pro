@@ -9,11 +9,13 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    imagetransform_1.cpp \
     main.cpp \
     imageprocessor_2.cpp
 
 HEADERS += \
-    imageprocessor_2.h
+    imageprocessor_2.h \
+    imagetransform_1.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
